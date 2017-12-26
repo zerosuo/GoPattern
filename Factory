@@ -1,0 +1,51 @@
+//工厂类
+package main
+
+import "fmt"
+
+//首先定义一个接口
+type car interface {
+	color()
+}
+//定义类（大众）
+type dz struct {
+
+}
+//实现接口
+func (d *dz) color() {
+	fmt.Printf("this is %s\n dz car", "red")
+}
+//定义类（奔驰）
+type bc struct {
+
+}
+//实现接口
+func (b *bc) color() {
+	fmt.Printf("this is %s\n bc car", "yellow")
+}
+
+//工厂
+type CarFactory struct {
+
+}
+
+func (this CarFactory) Produce(typ string) car {
+	switch typ {
+	case "dz":
+		return this.PrdouceDZ()
+	case "bc":
+		return this.ProduceBC()
+	default:
+		return nil
+	}
+
+}
+
+//不同传入的 实现不同的类
+func (CarFactory) PrdouceDZ() car {
+	return new(dz)
+}
+
+func (CarFactory) ProduceBC() car {
+	return new(bc)
+}
